@@ -2,260 +2,268 @@
 <html lang="zh-Hant-HK">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>1314 Luxury｜尖沙咀名牌代購・二手寄賣回收・只售正品</title>
   <meta name="description" content="1314 Luxury — 成立九年嘅歐洲專業代購團隊。尖沙咀持牌實體店，名牌代購、二手寄賣、收購回收，100% 正品保證，Worldwide Shipping。" />
-  <meta property="og:title" content="1314 Luxury｜尖沙咀名牌代購・二手寄賣回收" />
-  <meta property="og:description" content="不只是包包奢侈，而是讓你整個人變成奢侈品 💎" />
+  <meta property="og:title" content="1314 Luxury｜European Luxury · Pre-owned · Authentic" />
+  <meta property="og:description" content="不只是包包奢侈，而是讓你整個人變成奢侈品。" />
   <meta property="og:image" content="/img/logo.jpg" />
-  <meta name="theme-color" content="#fdeef2" />
-  <link rel="icon" href="/img/logo.jpg" />
+  <meta name="theme-color" content="#fbf6f4" />
+  <link rel="icon" href="/img/ai-mark.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
+<body class="is-loading">
+  <!-- ============ 開場動畫 ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 120 120" fill="none">
+      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="60" cy="60" r="55" stroke-width="1" pathLength="1" />
+        <path d="M33 31.5l4-3.5v27" stroke-width="3" pathLength="1" />
+        <path d="M46 33c4.5-6 22-8.5 25.5 2 3 9-5.5 15-14.5 15.5" stroke-width="4.2" pathLength="1" />
+        <path d="M57 50.5c13 .5 23 8.5 20.5 22.5-2.5 14-19.5 21-32.5 15.5-7-3-9.5-9.5-5.5-13 3.5-3 9-1 9.5 3.5" stroke-width="4.2" pathLength="1" />
+        <path d="M82 30l3-2.5v17" stroke-width="2.2" pathLength="1" />
+        <path d="M97 27.5l-6.5 11.5h10.5M97.5 31.5v13" stroke-width="2.2" pathLength="1" />
+      </g>
+    </svg>
+    <p class="loader__word">1314 <i>Luxury</i></p>
+  </div>
+
   <!-- ============ 導覽列 ============ -->
-  <header class="nav" id="top">
-    <div class="wrap nav__inner">
-      <a class="brand" href="#top" aria-label="1314 Luxury 首頁">
-        <img src="/img/logo.jpg" alt="1314 Luxury logo" width="44" height="44" />
-        <span class="brand__name">1314 <em>Luxury</em></span>
-      </a>
-      <nav class="nav__links" aria-label="主選單">
-        <a href="#collection">精選手袋</a>
-        <a href="#services">服務</a>
-        <a href="#about">關於我們</a>
-        <a href="#visit">門市</a>
-      </nav>
-      <div class="nav__cta">
-        <a class="icon-btn" href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" class="fill"/></svg>
-        </a>
-        <a class="btn btn--small" href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp 查詢</a>
-      </div>
-    </div>
+  <header class="nav" id="nav">
+    <nav class="nav__side" aria-label="主選單">
+      <a href="#maison">Maison</a>
+      <a href="#edit">The Edit</a>
+      <a href="#services">Services</a>
+    </nav>
+    <a class="nav__brand" href="#top" aria-label="1314 Luxury 首頁">
+      <img src="/img/logo.jpg" alt="" width="34" height="34" />
+      <span>1314 <i>Luxury</i></span>
+    </a>
+    <nav class="nav__side nav__side--end" aria-label="聯絡">
+      <a href="#boutique">Boutique</a>
+      <a href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">Instagram</a>
+      <a class="nav__wa" href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
   </header>
 
-  <main>
-    <!-- ============ 主視覺 ============ -->
-    <section class="hero">
-      <div class="wrap hero__inner">
-        <div class="hero__text">
-          <p class="eyebrow">European Luxury · Pre-owned · 100% Authentic</p>
-          <h1>不只是包包奢侈<br /><span>而是讓你整個人<br />變成奢侈品</span></h1>
-          <p class="lead">成立九年嘅歐洲專業代購團隊・尖沙咀持牌實體店<br />名牌代購、二手寄賣、收購回收，只售正品 💎</p>
-          <div class="hero__actions">
-            <a class="btn" href="#collection">瀏覽精選手袋</a>
-            <button class="btn btn--ghost" type="button" data-open-chat>問問 AI 小助手 ✨</button>
+  <main id="top">
+    <!-- ============ AI 主舞台（首頁第一屏） ============ -->
+    <section class="stage" id="concierge" aria-label="1314 AI 小助手">
+      <canvas class="stage__fluid" id="fluid" aria-hidden="true"></canvas>
+      <div class="grain" aria-hidden="true"></div>
+
+      <div class="stage__inner">
+        <div class="stage__intro">
+          <div class="orb" aria-hidden="true">
+            <span class="orb__halo"></span>
+            <span class="orb__core"><img src="/img/ai-mark.svg" alt="" width="120" height="120" draggable="false" /></span>
           </div>
-          <ul class="hero__badges">
-            <li>正牌正貨商標™ 認證</li>
-            <li>香港持牌註冊實體店</li>
-            <li>Worldwide Shipping</li>
-          </ul>
+          <h1 class="stage__brand">1314 LUXURY</h1>
+          <p class="stage__kicker"><span>Your Luxury Concierge</span></p>
+          <p class="stage__greeting" id="greeting" aria-live="off">
+            <span class="sr-only" id="greetingFull"></span>
+            <span aria-hidden="true"><span id="greetingTyped"></span><i class="caret"></i></span>
+          </p>
         </div>
-        <div class="hero__visual">
-          <div class="arch"><img src="/img/birkin25.jpg" alt="Hermès Birkin 25 杏仁綠 銀扣" /></div>
-          <a class="float-card" href="#collection">
-            <img src="/img/evelyne-1.jpg" alt="" />
-            <span><small>本週推介</small>Hermès Mini Evelyne<b>HK$19,500</b></span>
+
+        <div class="stage__log" id="chatLog" aria-live="polite" hidden></div>
+
+        <div class="stage__dock">
+          <form class="composer" id="chatForm">
+            <label class="sr-only" for="chatInput">輸入訊息</label>
+            <textarea id="chatInput" rows="1" maxlength="1500" enterkeyhint="send" placeholder="想搵邊款手袋？寄賣、收購、門市資料都可以問我…" data-short="想搵邊款手袋？隨時問我…"></textarea>
+            <button class="composer__send" id="sendBtn" type="submit" aria-label="發送" disabled>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4M4.5 9.5 10 4l5.5 5.5" /></svg>
+            </button>
+          </form>
+          <div class="chips" id="chips">
+            <button type="button">有咩新貨推介？</button>
+            <button type="button">點樣寄賣手袋？</button>
+            <button type="button">收購流程係點？</button>
+            <button type="button">門市地址同營業時間</button>
+          </div>
+          <p class="stage__note">AI 回覆僅供參考 · 價錢及現貨以 <a href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp 真人客服</a> 確認為準</p>
+        </div>
+
+        <button class="stage__reset" id="newChat" type="button" hidden>
+          <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 2v10M2 7h10" /></svg>新對話
+        </button>
+      </div>
+
+      <a class="scroll-cue" href="#maison"><span>Discover</span><i aria-hidden="true"></i></a>
+    </section>
+
+    <!-- ============ 01 品牌理念 ============ -->
+    <section class="maison" id="maison">
+      <div class="wrap">
+        <p class="label" data-reveal>01 — Maison</p>
+        <p class="manifesto" id="manifesto">不只是包包奢侈，<br />而是讓你整個人<br />變成奢侈品。</p>
+        <div class="maison__foot">
+          <p class="maison__copy" data-reveal>1314 Luxury 由創辦人棋棋 Kaki 主理，擁有十年歐洲奢侈品牌經驗。我哋係成立九年嘅歐洲專業代購團隊，於尖沙咀設持牌實體店，為你搜羅經典與當季，亦提供二手寄賣及收購服務。</p>
+          <a class="signature" href="https://www.instagram.com/kakichau_1009/" target="_blank" rel="noopener" data-reveal>
+            <span class="signature__name">Kaki Chau</span>
+            <span class="signature__role">棋棋 · Founder ↗</span>
           </a>
-          <span class="sparkle sparkle--1" aria-hidden="true">✦</span>
-          <span class="sparkle sparkle--2" aria-hidden="true">✧</span>
+        </div>
+        <ul class="facts">
+          <li data-reveal><strong data-count="9">9</strong><sup>+</sup><span>Years in Europe<br />歐洲代購團隊</span></li>
+          <li data-reveal><strong data-count="100">100</strong><sup>%</sup><span>Authentic<br />正牌正貨商標認證</span></li>
+          <li data-reveal><strong>TST</strong><span>Licensed Boutique<br />尖沙咀持牌實體店</span></li>
+          <li data-reveal><strong>∞</strong><span>Worldwide Shipping<br />全球寄送 · 門市面交</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 02 精選 ============ -->
+    <section class="edit" id="edit">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label" data-reveal>02 — The Edit</p>
+          <h2 data-reveal>精選二手</h2>
+          <p class="section-head__aside" data-reveal>每一件均經門市驗貨。<br />現貨與價錢隨時變動，以 WhatsApp 確認為準。</p>
+        </header>
+
+        <div class="products">
+          <article class="product" data-reveal>
+            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Mini%20Evelyne%EF%BC%88%E5%A5%B6%E8%8C%B6%E8%89%B2%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Hermès Mini Evelyne">
+              <img src="/img/evelyne-1.jpg" alt="Hermès Mini Evelyne 奶茶色 正面" loading="lazy" />
+              <img class="alt" src="/img/evelyne-2.jpg" alt="" loading="lazy" />
+              <span class="product__cond">98%</span>
+            </a>
+            <div class="product__info">
+              <p class="product__no">N°01 · Hermès</p>
+              <h3>Mini Evelyne</h3>
+              <p class="product__spec">奶茶色 · 銀扣 · U Stamp · 編織帶 · Full set 有單</p>
+              <p class="product__price">HK$19,500</p>
+            </div>
+          </article>
+
+          <article class="product product--offset" data-reveal>
+            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Birkin%2025%EF%BC%88%E6%9D%8F%E4%BB%81%E7%B6%A0%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Hermès Birkin 25">
+              <img src="/img/birkin25.jpg" alt="Hermès Birkin 25 杏仁綠" loading="lazy" />
+              <span class="product__cond">90%</span>
+            </a>
+            <div class="product__info">
+              <p class="product__no">N°02 · Hermès</p>
+              <h3>Birkin 25</h3>
+              <p class="product__spec">杏仁綠 · 銀扣 · Togo · B Stamp · Full set 有單</p>
+              <p class="product__price is-ask">Price on request</p>
+            </div>
+          </article>
+
+          <article class="product" data-reveal>
+            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Chanel%2022P%20Clutch%20with%20Chain%EF%BC%88Baby%20Blue%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Chanel 22P Clutch with Chain">
+              <img src="/img/chanel-1.jpg" alt="Chanel 22P Clutch with Chain Baby Blue" loading="lazy" />
+              <span class="product__cond">31 卡</span>
+            </a>
+            <div class="product__info">
+              <p class="product__no">N°03 · Chanel</p>
+              <h3>22P Clutch with Chain</h3>
+              <p class="product__spec">Baby Blue · 淡金扣 · 珍珠鏈條 · Full set 無單</p>
+              <p class="product__price">HK$9,XXX</p>
+            </div>
+          </article>
+
+          <article class="product product--offset" data-reveal>
+            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Kelly%2028%EF%BC%88Blue%20Indigo%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Hermès Kelly 28">
+              <img src="/img/kelly-3.jpg" alt="Hermès Kelly 28 Blue Indigo" loading="lazy" />
+              <span class="product__cond">98%</span>
+            </a>
+            <div class="product__info">
+              <p class="product__no">N°04 · Hermès</p>
+              <h3>Kelly 28</h3>
+              <p class="product__spec">76 Blue Indigo · 金扣 · Epsom · Full set 有單</p>
+              <p class="product__price is-ask">Price on request</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="edit__more" data-reveal>
+          <a class="line-link" href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">喺 Instagram 睇更多新貨 <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
 
     <!-- ============ 跑馬燈 ============ -->
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker__track">
-        <span>歐洲代購</span><i>✦</i><span>二手寄賣</span><i>✦</i><span>名牌收購</span><i>✦</i><span>100% Authentic</span><i>✦</i><span>Worldwide Shipping</span><i>✦</i><span>尖沙咀實體店</span><i>✦</i>
-        <span>歐洲代購</span><i>✦</i><span>二手寄賣</span><i>✦</i><span>名牌收購</span><i>✦</i><span>100% Authentic</span><i>✦</i><span>Worldwide Shipping</span><i>✦</i><span>尖沙咀實體店</span><i>✦</i>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marquee">
+        <span>Hermès</span><i>✦</i><span>Chanel</span><i>✦</i><span>Pre-owned</span><i>✦</i><span>100% Authentic</span><i>✦</i><span>Worldwide</span><i>✦</i>
+        <span>Hermès</span><i>✦</i><span>Chanel</span><i>✦</i><span>Pre-owned</span><i>✦</i><span>100% Authentic</span><i>✦</i><span>Worldwide</span><i>✦</i>
       </div>
     </div>
 
-    <!-- ============ 信任指標 ============ -->
-    <section class="trust wrap" aria-label="品牌保證">
-      <div class="trust__item"><strong>9<sup>+</sup></strong><span>年歐洲代購團隊</span></div>
-      <div class="trust__item"><strong>100<sup>%</sup></strong><span>正品・商標認證</span></div>
-      <div class="trust__item"><strong>TST</strong><span>尖沙咀持牌實體店</span></div>
-      <div class="trust__item"><strong>🌍</strong><span>全球寄送 · 門市面交</span></div>
-    </section>
-
-    <!-- ============ 精選手袋 ============ -->
-    <section class="section" id="collection">
+    <!-- ============ 03 服務 ============ -->
+    <section class="services" id="services">
       <div class="wrap">
-        <header class="section__head">
-          <p class="eyebrow">Curated Pre-owned</p>
-          <h2>精選二手推介</h2>
-          <p class="muted">每一款都經門市驗貨。現貨同價錢隨時變動，以 WhatsApp 確認為準 💕</p>
+        <header class="section-head">
+          <p class="label" data-reveal>03 — Services</p>
+          <h2 data-reveal>一站式名牌服務</h2>
         </header>
 
-        <div class="grid">
-          <article class="card">
-            <div class="card__img">
-              <img src="/img/evelyne-1.jpg" alt="Hermès Mini Evelyne 奶茶色 正面" loading="lazy" />
-              <img class="alt" src="/img/evelyne-2.jpg" alt="" loading="lazy" />
-              <span class="tag">98% 新</span>
-            </div>
-            <div class="card__body">
-              <p class="card__brand">HERMÈS</p>
-              <h3>Mini Evelyne 🧋</h3>
-              <p class="card__spec">奶茶色・銀扣・U Stamp・編織帶<br />Full set 有單</p>
-              <div class="card__foot">
-                <span class="price">HK$19,500</span>
-                <a class="link-wa" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Mini%20Evelyne%EF%BC%88%E5%A5%B6%E8%8C%B6%E8%89%B2%EF%BC%89" target="_blank" rel="noopener">查詢</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card__img">
-              <img src="/img/birkin25.jpg" alt="Hermès Birkin 25 杏仁綠" loading="lazy" />
-              <span class="tag">90% 新</span>
-            </div>
-            <div class="card__body">
-              <p class="card__brand">HERMÈS</p>
-              <h3>Birkin 25 🌿</h3>
-              <p class="card__spec">杏仁綠・銀扣・Togo・B Stamp<br />Full set 有單</p>
-              <div class="card__foot">
-                <span class="price price--ask">價錢請查詢</span>
-                <a class="link-wa" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Birkin%2025%EF%BC%88%E6%9D%8F%E4%BB%81%E7%B6%A0%EF%BC%89" target="_blank" rel="noopener">查詢</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card__img">
-              <img src="/img/chanel-1.jpg" alt="Chanel 22P Clutch with Chain Baby Blue" loading="lazy" />
-              <span class="tag">31 卡</span>
-            </div>
-            <div class="card__body">
-              <p class="card__brand">CHANEL</p>
-              <h3>22P Clutch with Chain 👶🏻</h3>
-              <p class="card__spec">Baby Blue・淡金扣・珍珠鏈條<br />Full set 無單</p>
-              <div class="card__foot">
-                <span class="price">HK$9,xxx</span>
-                <a class="link-wa" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Chanel%2022P%20Clutch%20with%20Chain%EF%BC%88Baby%20Blue%EF%BC%89" target="_blank" rel="noopener">查詢</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card__img">
-              <img src="/img/kelly-3.jpg" alt="Hermès Kelly 28 Blue Indigo" loading="lazy" />
-              <span class="tag">98% 新</span>
-            </div>
-            <div class="card__body">
-              <p class="card__brand">HERMÈS</p>
-              <h3>Kelly 28 💙</h3>
-              <p class="card__spec">76 Blue Indigo・金扣・Epsom<br />Full set 有單</p>
-              <div class="card__foot">
-                <span class="price price--ask">價錢請查詢</span>
-                <a class="link-wa" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Kelly%2028%EF%BC%88Blue%20Indigo%EF%BC%89" target="_blank" rel="noopener">查詢</a>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="center">
-          <a class="btn btn--ghost" href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">喺 Instagram 睇更多新貨 →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 服務 ============ -->
-    <section class="section section--tint" id="services">
-      <div class="wrap">
-        <header class="section__head">
-          <p class="eyebrow">Our Services</p>
-          <h2>一站式名牌服務</h2>
-        </header>
-        <div class="services">
-          <div class="service">
-            <span class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M2.5 13.5l19-8-6 15-3.5-6.5z"/><path d="M12 14l9.5-8.5"/></svg>
-            </span>
-            <h3>歐洲名牌代購</h3>
-            <p>駐歐代購團隊直接入貨，熱門款式同季節新品都可以幫你搵。</p>
-          </div>
-          <div class="service">
-            <span class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
-            </span>
-            <h3>二手寄賣</h3>
-            <p>閒置手袋交俾我哋代為寄賣，透過門市同社交平台幫你搵買家。</p>
-          </div>
-          <div class="service">
-            <span class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.2c-.5-.8-1.4-1.2-2.5-1.2-1.5 0-2.5.8-2.5 1.9 0 2.6 5.2 1.4 5.2 4.1 0 1.1-1.1 2-2.7 2-1.2 0-2.2-.5-2.7-1.3M12 6.5v1.5M12 16v1.5"/></svg>
-            </span>
-            <h3>名牌收購回收</h3>
-            <p>WhatsApp 傳相即可初步查詢，亦歡迎親臨門市免費查詢。</p>
-          </div>
-          <div class="service">
-            <span class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2.8l7.5 3v5.6c0 4.6-3.2 8.3-7.5 9.8-4.3-1.5-7.5-5.2-7.5-9.8V5.8z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg>
-            </span>
-            <h3>正品保證</h3>
-            <p>正牌正貨商標™ 認證商戶，歡迎到尖沙咀實體店親自驗貨。</p>
-          </div>
-        </div>
+        <ol class="service-list">
+          <li class="service" data-reveal>
+            <span class="service__no">01</span>
+            <h3>歐洲名牌代購<small>Personal Shopping in Europe</small></h3>
+            <p>駐歐團隊直接入貨，經典款式與當季新品，為你逐一搜羅。</p>
+            <a class="service__go" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E6%AD%90%E6%B4%B2%E4%BB%A3%E8%B3%BC" target="_blank" rel="noopener" aria-label="查詢歐洲代購">→</a>
+          </li>
+          <li class="service" data-reveal>
+            <span class="service__no">02</span>
+            <h3>二手寄賣<small>Consignment</small></h3>
+            <p>將閒置手袋交託我們，透過門市與社交平台為你尋找新主人。</p>
+            <a class="service__go" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%AF%84%E8%B3%A3%E6%89%8B%E8%A2%8B" target="_blank" rel="noopener" aria-label="查詢二手寄賣">→</a>
+          </li>
+          <li class="service" data-reveal>
+            <span class="service__no">03</span>
+            <h3>名牌收購回收<small>We Buy Luxury</small></h3>
+            <p>WhatsApp 傳送相片即可初步查詢，亦歡迎親臨門市免費查詢。</p>
+            <a class="service__go" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%E5%90%8D%E7%89%8C%E6%94%B6%E8%B3%BC" target="_blank" rel="noopener" aria-label="查詢名牌收購">→</a>
+          </li>
+          <li class="service" data-reveal>
+            <span class="service__no">04</span>
+            <h3>正品保證<small>Authenticity Guaranteed</small></h3>
+            <p>正牌正貨商標™ 認證商戶，歡迎親臨尖沙咀實體店驗貨。</p>
+            <a class="service__go" href="#boutique" aria-label="查看門市資料">→</a>
+          </li>
+        </ol>
 
         <ol class="steps" aria-label="寄賣及收購流程">
-          <li><b>01</b><span>WhatsApp 傳送手袋相片</span></li>
-          <li><b>02</b><span>同事初步報價</span></li>
-          <li><b>03</b><span>門市驗貨</span></li>
-          <li><b>04</b><span>寄賣或即場收購</span></li>
+          <li data-reveal><b>I</b><span>WhatsApp 傳送手袋相片</span></li>
+          <li data-reveal><b>II</b><span>同事初步報價</span></li>
+          <li data-reveal><b>III</b><span>門市驗貨</span></li>
+          <li data-reveal><b>IV</b><span>寄賣或即場收購</span></li>
         </ol>
       </div>
     </section>
 
-    <!-- ============ 關於 ============ -->
-    <section class="section" id="about">
-      <div class="wrap about">
-        <div class="about__logo">
-          <img src="/img/logo.jpg" alt="1314 Luxury 門市招牌" loading="lazy" />
-        </div>
-        <div class="about__text">
-          <p class="eyebrow">Founder's Note</p>
-          <h2>你好，我係棋棋 Kaki 💕</h2>
-          <p>#1314luxuryforlady 創辦人，主理歐洲奢侈品牌十年經驗。鍾意分享健康、好物，同埋傳播正能量 ✨</p>
-          <blockquote>「不只是包包奢侈，而是讓你如何整個人變成奢侈品。」</blockquote>
-          <p class="muted">希望每位客人都可以喺 1314 Luxury 安心揀選，擁有屬於自己嘅經典。</p>
-          <div class="about__links">
-            <a class="chip" href="https://www.instagram.com/kakichau_1009/" target="_blank" rel="noopener">@kakichau_1009</a>
-            <a class="chip" href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">@1314luxury_forlady</a>
-            <a class="chip" href="https://www.threads.com/@1314luxury_preowned" target="_blank" rel="noopener">Threads 二手區</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 門市 ============ -->
-    <section class="section section--tint" id="visit">
-      <div class="wrap visit">
-        <div class="visit__info">
-          <p class="eyebrow">Visit Our Boutique</p>
-          <h2>歡迎親臨門市驗貨</h2>
-          <dl>
-            <dt>地址</dt>
-            <dd>尖沙咀北京道57號國都大廈803室<br /><small>尖沙咀港鐵站 H 出口，國際廣場對面</small></dd>
-            <dt>營業時間</dt>
-            <dd>星期一至星期六　12pm – 8pm</dd>
+    <!-- ============ 04 門市 ============ -->
+    <section class="boutique" id="boutique">
+      <div class="wrap boutique__grid">
+        <div class="boutique__info">
+          <p class="label" data-reveal>04 — The Boutique</p>
+          <h2 data-reveal>歡迎親臨<br />尖沙咀門市</h2>
+          <dl data-reveal>
+            <dt>Address</dt>
+            <dd>尖沙咀北京道57號國都大廈803室<small>港鐵尖沙咀站 H 出口 · 國際廣場對面</small></dd>
+            <dt>Hours</dt>
+            <dd>星期一至星期六 12:00 – 20:00</dd>
             <dt>WhatsApp</dt>
             <dd><a href="https://wa.me/85294177866" target="_blank" rel="noopener">+852 9417 7866</a></dd>
           </dl>
-          <div class="hero__actions">
-            <a class="btn" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%E5%88%B0%E9%96%80%E5%B8%82%E7%9D%87%E8%B2%A8" target="_blank" rel="noopener">WhatsApp 預約睇貨</a>
-            <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=%E5%B0%96%E6%B2%99%E5%92%80%E5%8C%97%E4%BA%AC%E9%81%9357%E8%99%9F%E5%9C%8B%E9%83%BD%E5%A4%A7%E5%BB%88" target="_blank" rel="noopener">Google 地圖</a>
+          <div class="boutique__actions" data-reveal>
+            <a class="btn" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%E5%88%B0%E9%96%80%E5%B8%82%E7%9D%87%E8%B2%A8" target="_blank" rel="noopener"><span>預約到店睇貨</span></a>
+            <a class="line-link" href="https://www.google.com/maps/search/?api=1&query=%E5%B0%96%E6%B2%99%E5%92%80%E5%8C%97%E4%BA%AC%E9%81%9357%E8%99%9F%E5%9C%8B%E9%83%BD%E5%A4%A7%E5%BB%88" target="_blank" rel="noopener">Google 地圖 <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <div class="visit__map">
-          <iframe title="1314 Luxury 門市地圖" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=%E5%B0%96%E6%B2%99%E5%92%80%E5%8C%97%E4%BA%AC%E9%81%9357%E8%99%9F%E5%9C%8B%E9%83%BD%E5%A4%A7%E5%BB%88&z=17&output=embed"></iframe>
+        <div class="boutique__visual" data-reveal>
+          <div class="boutique__map">
+            <iframe title="1314 Luxury 門市地圖" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=%E5%B0%96%E6%B2%99%E5%92%80%E5%8C%97%E4%BA%AC%E9%81%9357%E8%99%9F%E5%9C%8B%E9%83%BD%E5%A4%A7%E5%BB%88&z=17&output=embed"></iframe>
+          </div>
+          <img class="boutique__sign" src="/img/logo.jpg" alt="1314 Luxury 門市招牌" width="160" height="160" loading="lazy" data-parallax="-0.06" />
         </div>
       </div>
     </section>
@@ -263,56 +271,32 @@
 
   <!-- ============ 頁尾 ============ -->
   <footer class="footer">
-    <div class="wrap footer__inner">
-      <div class="brand">
-        <img src="/img/logo.jpg" alt="" width="44" height="44" />
-        <span class="brand__name">1314 <em>Luxury</em></span>
+    <div class="wrap">
+      <div class="footer__top">
+        <p class="footer__line">為你帶來更優質嘅服務體驗。</p>
+        <nav class="footer__links" aria-label="社交平台">
+          <a href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.instagram.com/kakichau_1009/" target="_blank" rel="noopener">Founder</a>
+          <a href="https://www.facebook.com/1314LuxuryForLady/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.threads.com/@1314luxury_preowned" target="_blank" rel="noopener">Threads</a>
+          <a href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp</a>
+        </nav>
       </div>
-      <nav class="footer__links" aria-label="社交平台">
-        <a href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.instagram.com/kakichau_1009/" target="_blank" rel="noopener">創辦人 IG</a>
-        <a href="https://www.facebook.com/1314LuxuryForLady/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.threads.com/@1314luxury_preowned" target="_blank" rel="noopener">Threads</a>
-        <a href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp</a>
-      </nav>
-      <p class="footer__copy">© <span id="year">2026</span> 1314 Luxury Limited · 只售正品 · Operated in Hong Kong</p>
+      <p class="footer__word" aria-hidden="true">1314 Luxury</p>
+      <p class="footer__copy">© <span id="year">2026</span> 1314 Luxury Limited · 只售正品 · Hong Kong</p>
     </div>
   </footer>
 
-  <!-- ============ 浮動按鈕：WhatsApp + AI 客服 ============ -->
+  <!-- ============ 浮動按鈕 ============ -->
   <a class="fab fab--wa" href="https://wa.me/85294177866" target="_blank" rel="noopener" aria-label="WhatsApp 聯絡我們">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M12 2.2A9.7 9.7 0 003.6 16.8L2.3 21.7l5-1.3A9.7 9.7 0 1012 2.2zm0 17.7a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2A9.7 9.7 0 003.6 16.8L2.3 21.7l5-1.3A9.7 9.7 0 1012 2.2zm0 17.7a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
   </a>
-  <button class="fab fab--chat" type="button" data-open-chat aria-label="開啟 AI 客服" aria-controls="chat" aria-expanded="false">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10.5H9l-5 4z"/><circle class="fill" cx="8.5" cy="10.8" r="1"/><circle class="fill" cx="12" cy="10.8" r="1"/><circle class="fill" cx="15.5" cy="10.8" r="1"/></svg>
-    <span>AI 小助手</span>
+  <button class="fab fab--ai" id="aiLauncher" type="button" aria-label="與 AI 小助手對話">
+    <span class="fab__orb"><img src="/img/ai-mark.svg" alt="" width="60" height="60" /></span>
+    <span class="fab__label">問問小助手</span>
   </button>
 
-  <section class="chat" id="chat" role="dialog" aria-label="1314 AI 小助手" hidden>
-    <header class="chat__head">
-      <img src="/img/logo.jpg" alt="" width="38" height="38" />
-      <div>
-        <strong>1314 小助手</strong>
-        <small><i class="dot"></i>AI 客服 · 24 小時在線</small>
-      </div>
-      <button class="chat__close" type="button" aria-label="關閉" data-close-chat>×</button>
-    </header>
-    <div class="chat__log" id="chatLog" aria-live="polite"></div>
-    <div class="chat__chips" id="chatChips">
-      <button type="button">有咩新貨推介？</button>
-      <button type="button">點樣寄賣手袋？</button>
-      <button type="button">收購流程係點？</button>
-      <button type="button">門市地址同營業時間</button>
-    </div>
-    <form class="chat__form" id="chatForm">
-      <textarea id="chatInput" rows="1" maxlength="1500" placeholder="輸入你嘅問題…" aria-label="輸入訊息"></textarea>
-      <button type="submit" aria-label="發送">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5l18-8-7 18-2.5-7.5z"/></svg>
-      </button>
-    </form>
-    <p class="chat__note">AI 回覆僅供參考，價錢及現貨以 <a href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp 真人客服</a> 確認為準</p>
-  </section>
-
+  <script src="/fluid.js" defer></script>
   <script src="/app.js" defer></script>
 </body>
 </html>

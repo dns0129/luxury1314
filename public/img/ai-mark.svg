@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- 1314 AI 小助手標誌：取自店舖招牌「大 3 貫穿、尾端回捲」的特徵，
+       改為圓形徽章 + 細線條 + 一顆代表 AI 的星芒，與原 logo 相似但不相同 -->
+  <defs>
+    <linearGradient id="rg" x1="18" y1="16" x2="104" y2="106" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e9c4ad"/>
+      <stop offset=".5" stop-color="#b9806f"/>
+      <stop offset="1" stop-color="#8e4a62"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="55" stroke="url(#rg)" stroke-width="1.2" opacity=".55"/>
+  <circle cx="60" cy="60" r="50.5" stroke="url(#rg)" stroke-width=".6" opacity=".35"/>
+  <g stroke="url(#rg)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 左側「1」 -->
+    <path d="M33 31.5l4-3.5v27" stroke-width="3"/>
+    <!-- 中央大「3」：上弧、腰線，下弧拉長並回捲成尾巴 -->
+    <path d="M46 33c4.5-6 22-8.5 25.5 2 3 9-5.5 15-14.5 15.5" stroke-width="4.2"/>
+    <path d="M57 50.5c13 .5 23 8.5 20.5 22.5-2.5 14-19.5 21-32.5 15.5-7-3-9.5-9.5-5.5-13 3.5-3 9-1 9.5 3.5" stroke-width="4.2"/>
+    <!-- 右上小「14」 -->
+    <path d="M82 30l3-2.5v17" stroke-width="2.2"/>
+    <path d="M97 27.5l-6.5 11.5h10.5M97.5 31.5v13" stroke-width="2.2"/>
+  </g>
+  <!-- AI 星芒 -->
+  <path d="M90 76c.9 4.6 2.4 6.1 7 7-4.6.9-6.1 2.4-7 7-.9-4.6-2.4-6.1-7-7 4.6-.9 6.1-2.4 7-7z" fill="url(#rg)"/>
+  <circle cx="99.5" cy="72" r="1.4" fill="url(#rg)" opacity=".7"/>
+</svg>
