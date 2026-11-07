@@ -1,0 +1,17 @@
+{
+  "name": "1314-luxury-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "1314 Luxury 官方網站 + AI 客服",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "dev": "node --watch --env-file-if-exists=.env server.mjs"
+  },
+  "engines": {
+    "node": ">=20.6"
+  },
+  "dependencies": {
+    "openai": "^7.53.0"
+  }
+}
