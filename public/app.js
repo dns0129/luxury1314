@@ -23,6 +23,8 @@
     nav.classList.toggle("is-scrolled", y > 40);
     nav.classList.toggle("is-hidden", y > 400 && y > lastY + 4);
     if (y < lastY - 4 || y < 400) nav.classList.remove("is-hidden");
+    // 捲過一半後，回彈露出的底色改成頁腳的深莓色
+    document.documentElement.classList.toggle("at-end", y > (document.documentElement.scrollHeight - innerHeight) / 2);
     lastY = y;
   }
 

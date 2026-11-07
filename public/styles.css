@@ -33,7 +33,13 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* 上下拉過頭時露出的是 html 底色：關閉回彈，並讓底色跟隨頁面頂／底的顏色 */
+html {
+  scroll-behavior: smooth; -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+  background: var(--blush);
+}
+html.at-end { background: var(--plum); }
 body {
   margin: 0;
   background: var(--paper);
