@@ -476,7 +476,6 @@ body:not(.is-loading) .scroll-cue { animation: fadeIn 1.2s 1.6s both; }
   .showcase.is-enhanced .product__info { padding: 0; transition: transform 0.9s var(--ease); }
   .showcase.is-enhanced .product.is-active .product__info { transform: translateX(22px); }
   .showcase.is-enhanced .product h3 { margin: 10px 0 10px; font-size: clamp(2.5rem, 4.3vw, 4.1rem); font-weight: 400; line-height: 1.02; letter-spacing: -0.005em; }
-  .showcase.is-enhanced .product.is-active h3 { font-style: italic; }
   .showcase.is-enhanced .product__spec { font-size: 0.86rem; }
   .showcase.is-enhanced .product__foot { justify-content: flex-start; gap: 10px 34px; margin-top: 16px; }
   .showcase.is-enhanced .product__price:not(.is-ask) { font-size: 1.45rem; }
@@ -490,17 +489,24 @@ body:not(.is-loading) .scroll-cue { animation: fadeIn 1.2s 1.6s both; }
   box-shadow: 0 50px 90px -60px rgba(59, 29, 40, 0.55);
   cursor: zoom-in;
 }
-.plate__layers, .plate__layer { position: absolute; inset: 0; display: block; }
-.plate__layer { z-index: 0; clip-path: inset(100% 0 0 0); transition: clip-path 0s 1.15s; }
-.plate__layer.is-prev { z-index: 1; clip-path: inset(0); transition: none; }
-.plate__layer.is-active { z-index: 2; clip-path: inset(0); transition: clip-path 1.15s var(--ease-io); }
-.plate__layer img {
-  width: 100%; height: 100%; object-fit: cover;
-  transform: scale(1.3); transition: transform 0s 1.15s, translate 0.9s var(--ease);
-  translate: calc(var(--px, 0) * -14px) calc(var(--py, 0) * -14px);
+/* 換圖只動 transform／translate／scale（全部由 GPU 合成，不會重繪）：
+   圖層由下方滑入，入面的相片以相同幅度反方向移動 —— 視覺上相片不動，只有「揭開」的邊線向上走 */
+.plate__layers {
+  position: absolute; inset: -16px; display: block;
+  translate: calc(var(--px, 0) * -14px) calc(var(--py, 0) * -14px); transition: translate 0.9s var(--ease);
 }
-.plate__layer.is-prev img { transform: scale(1.06); transition: translate 0.9s var(--ease); }
-.plate__layer.is-active img { transform: scale(1.06); transition: transform 2.6s var(--ease), translate 0.9s var(--ease); }
+.plate__layer {
+  position: absolute; inset: 0; display: block; overflow: hidden; will-change: transform;
+  animation: plateWipe 1.05s var(--ease-io) both;
+}
+.plate__layer img {
+  width: 100%; height: 100%; object-fit: cover; will-change: translate, scale;
+  animation: plateCounter 1.05s var(--ease-io) both, plateSettle 2.2s var(--ease) both;
+}
+.plate__layer.is-static, .plate__layer.is-static img { animation: none; }
+@keyframes plateWipe { from { transform: translateY(100%); } }
+@keyframes plateCounter { from { translate: 0 -100%; } }
+@keyframes plateSettle { from { scale: 1.14; } }
 .plate__cursor {
   position: absolute; left: var(--cx, 50%); top: var(--cy, 50%); z-index: 5;
   width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%;

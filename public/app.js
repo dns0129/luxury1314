@@ -329,35 +329,56 @@
   const firstShot = (p) => shots.findIndex((s) => s.p === p);
 
   const plate = $("#plate");
-  const layers = shots.map((s) => {
-    const layer = document.createElement("span");
-    layer.className = "plate__layer";
+  const stack = $("#plateLayers");
+  // 每張相預先解碼一次；換圖時複製這個節點，瀏覽器會直接用已解碼的結果，不會卡在第一幀
+  const sources = shots.map((s) => {
     const img = new Image();
-    img.src = s.src;
+    img.decoding = "sync";
     img.alt = "";
     img.draggable = false;
-    layer.appendChild(img);
-    $("#plateLayers").appendChild(layer);
-    return layer;
+    img.src = s.src;
+    img.decode?.().catch(() => {});
+    return img;
   });
   const ghost = $("#plateNo");
   const views = $("#plateViews");
-  let activeP = -1, activeShot = -1;
+  let activeP = -1, activeShot = -1, painted = -1, shotTimer = 0;
 
-  function showShot(k) {
-    if (k === activeShot) return;
-    layers.forEach((l) => l.classList.remove("is-prev"));
-    if (activeShot >= 0) {
-      layers[activeShot].classList.remove("is-active");
-      layers[activeShot].classList.add("is-prev");
-    }
-    layers[k].classList.add("is-active");
-    activeShot = k;
-    $$("button", views).forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.shot) === k)));
+  // 換圖 = 在最上面疊一張新圖層，由下而上揭開；揭完才清走下面的舊圖層。
+  // 無論切換得幾快，新圖層永遠蓋在當下畫面之上，所以不會跳格或露底。
+  function paintShot(k) {
+    if (k === painted) return;
+    const instant = painted < 0 || calm;
+    painted = k;
+    const layer = document.createElement("span");
+    layer.className = `plate__layer${instant ? " is-static" : ""}`;
+    layer.appendChild(sources[k].cloneNode());
+    stack.appendChild(layer);
+    const prune = () => {
+      while (stack.firstChild !== layer) stack.removeChild(stack.firstChild);
+    };
+    if (instant) prune();
+    else layer.addEventListener("animationend", (e) => e.target === layer && prune());
   }
 
-  function activate(p, shot = firstShot(p)) {
-    if (p === activeP) return showShot(shot);
+  // now = false 時稍等一下才換圖：快速捲過幾行時，只會換到最後停低的那一件
+  function showShot(k, now = false) {
+    if (k !== activeShot) {
+      activeShot = k;
+      $$("button", views).forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.shot) === k)));
+    }
+    clearTimeout(shotTimer);
+    if (now) paintShot(k);
+    else shotTimer = setTimeout(() => paintShot(k), 110);
+  }
+
+  function activate(p, shot, now = false) {
+    if (p === activeP) {
+      // 同一件貨：只有明確指定某張相先換，否則保留客人揀緊的角度
+      if (shot !== undefined) showShot(shot, now);
+      return;
+    }
+    shot ??= firstShot(p);
     activeP = p;
     const it = items[p];
     items.forEach((x, i) => x.el.classList.toggle("is-active", i === p));
@@ -380,11 +401,12 @@
         b.dataset.shot = k;
         b.setAttribute("aria-label", `第 ${s.v + 1} 張相`);
         b.innerHTML = `<img src="${s.src}" alt="" />`;
-        b.addEventListener("click", () => showShot(k));
+        b.setAttribute("aria-pressed", String(k === shot));
+        b.addEventListener("click", () => showShot(k, true));
         views.appendChild(b);
       });
     }
-    showShot(shot);
+    showShot(shot, now);
   }
 
   if (items.length) {
@@ -392,11 +414,10 @@
     showcase.classList.add("is-enhanced");
     $("#railBar").parentElement.style.setProperty("--n", items.length);
     $(".showcase__count").lastChild.textContent = pad(items.length);
-    activate(0);
+    activate(0, 0, true);
 
     const wide = matchMedia("(min-width: 1081px)");
     items.forEach((it, p) => {
-      it.el.addEventListener("mouseenter", () => wide.matches && activate(p));
       it.el.addEventListener("focusin", () => wide.matches && activate(p));
       it.el.addEventListener("click", (e) => {
         if (e.target.closest("a")) return;
@@ -405,12 +426,27 @@
       });
     });
 
-    // 桌面：名錄捲到畫面中間的那一行自動成為主角
-    let pointerInList = false;
-    rail.addEventListener("mouseenter", () => (pointerInList = true));
-    rail.addEventListener("mouseleave", () => (pointerInList = false));
+    // 桌面：滑鼠真正移動到哪一行，哪一行就成為主角。
+    // 捲動時瀏覽器會補發座標不變的「假」滑鼠事件，要忽略，否則會同捲動搶控制權。
+    let mx0 = -1, my0 = -1, hoverY = null;
+    rail.addEventListener("mousemove", (e) => {
+      if (e.clientX === mx0 && e.clientY === my0) return;
+      mx0 = e.clientX;
+      my0 = e.clientY;
+      const row = e.target.closest(".product");
+      if (!row || !wide.matches) return;
+      hoverY = scrollY;
+      activate(items.findIndex((it) => it.el === row));
+    });
+    rail.addEventListener("mouseleave", () => (hoverY = null));
+
+    // 捲動：最接近畫面中間的那一行成為主角；剛用滑鼠揀過的話，要再捲一段先交還控制權
+    let showcaseTick = false;
     function onShowcaseScroll() {
-      if (!wide.matches || pointerInList) return;
+      showcaseTick = false;
+      if (!wide.matches) return;
+      if (hoverY !== null && Math.abs(scrollY - hoverY) < 90) return;
+      hoverY = null;
       const mid = innerHeight * 0.5;
       let best = 0, dist = Infinity;
       items.forEach((it, p) => {
@@ -420,7 +456,11 @@
       });
       activate(best);
     }
-    addEventListener("scroll", onShowcaseScroll, { passive: true });
+    addEventListener("scroll", () => {
+      if (showcaseTick) return;
+      showcaseTick = true;
+      requestAnimationFrame(onShowcaseScroll);
+    }, { passive: true });
 
     // 手機：滑動進度條
     rail.addEventListener("scroll", () => {
@@ -505,7 +545,7 @@
   });
   lb.addEventListener("close", () => {
     // 關閉後展台停留在剛才睇緊的那一件
-    if (items.length) activate(shots[lbAt].p, lbAt);
+    if (items.length) activate(shots[lbAt].p, lbAt, true);
   });
 
   /* =========================================================
