@@ -43,6 +43,7 @@
       <span>1314 <i>Luxury</i></span>
     </a>
     <nav class="nav__side nav__side--end" aria-label="聯絡">
+      <a class="nav__live" id="navLive" href="#live"><i aria-hidden="true"></i><span>Live</span></a>
       <a href="#boutique">Boutique</a>
       <a href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">Instagram</a>
       <a class="nav__wa" href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp</a>
@@ -126,59 +127,94 @@
           <p class="section-head__aside" data-reveal>每一件均經門市驗貨。<br />現貨與價錢隨時變動，以 WhatsApp 確認為準。</p>
         </header>
 
-        <div class="products">
-          <article class="product" data-reveal>
-            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Mini%20Evelyne%EF%BC%88%E5%A5%B6%E8%8C%B6%E8%89%B2%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Hermès Mini Evelyne">
-              <img src="/img/evelyne-1.jpg" alt="Hermès Mini Evelyne 奶茶色 正面" loading="lazy" />
-              <img class="alt" src="/img/evelyne-2.jpg" alt="" loading="lazy" />
-              <span class="product__cond">98%</span>
+        <!-- 展示方式：桌面 = 左邊固定「展台」＋右邊名錄；手機 = 橫向滑動畫廊。展台由 app.js 根據下面的產品自動生成 -->
+        <div class="showcase" id="showcase">
+          <div class="showcase__stage" id="stage" hidden>
+            <span class="showcase__ghost" id="plateNo" aria-hidden="true">01</span>
+            <button class="plate" id="plate" type="button" aria-label="放大睇產品相片">
+              <span class="plate__layers" id="plateLayers"></span>
+              <span class="plate__cond" id="plateCond"></span>
+              <span class="plate__cursor" aria-hidden="true">View</span>
+            </button>
+            <div class="plate__views" id="plateViews" aria-label="切換相片角度"></div>
+            <a class="seal" id="plateSeal" href="https://wa.me/85294177866" target="_blank" rel="noopener" aria-label="WhatsApp 查詢呢件貨品">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <defs><path id="sealArc" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0" /></defs>
+                <text><textPath href="#sealArc" textLength="282">ENQUIRE VIA WHATSAPP · 1314 LUXURY · </textPath></text>
+              </svg>
+              <i aria-hidden="true">↗</i>
             </a>
-            <div class="product__info">
-              <p class="product__no">N°01 · Hermès</p>
-              <h3>Mini Evelyne</h3>
-              <p class="product__spec">奶茶色 · 銀扣 · U Stamp · 編織帶 · Full set 有單</p>
-              <p class="product__price">HK$19,500</p>
-            </div>
-          </article>
+            <p class="showcase__count" aria-hidden="true"><b id="plateIdx">01</b><span></span>04</p>
+          </div>
 
-          <article class="product product--offset" data-reveal>
-            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Birkin%2025%EF%BC%88%E6%9D%8F%E4%BB%81%E7%B6%A0%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Hermès Birkin 25">
-              <img src="/img/birkin25.jpg" alt="Hermès Birkin 25 杏仁綠" loading="lazy" />
-              <span class="product__cond">90%</span>
-            </a>
-            <div class="product__info">
-              <p class="product__no">N°02 · Hermès</p>
-              <h3>Birkin 25</h3>
-              <p class="product__spec">杏仁綠 · 銀扣 · Togo · B Stamp · Full set 有單</p>
-              <p class="product__price is-ask">Price on request</p>
-            </div>
-          </article>
+          <div class="products" id="products">
+            <article class="product" data-reveal data-wa="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Mini%20Evelyne%EF%BC%88%E5%A5%B6%E8%8C%B6%E8%89%B2%EF%BC%89">
+              <button class="product__media" type="button" aria-label="放大睇 Hermès Mini Evelyne">
+                <img src="/img/evelyne-1.jpg" alt="Hermès Mini Evelyne 奶茶色 正面" loading="lazy" />
+                <img class="alt" src="/img/evelyne-2.jpg" alt="Hermès Mini Evelyne 奶茶色 背面" loading="lazy" />
+                <span class="product__cond">98%</span>
+              </button>
+              <div class="product__info">
+                <p class="product__no">N°01 · Hermès</p>
+                <h3>Mini Evelyne</h3>
+                <p class="product__spec">奶茶色 · 銀扣 · U Stamp · 編織帶 · Full set 有單</p>
+                <div class="product__foot">
+                  <p class="product__price">HK$19,500</p>
+                  <a class="product__ask" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Mini%20Evelyne%EF%BC%88%E5%A5%B6%E8%8C%B6%E8%89%B2%EF%BC%89" target="_blank" rel="noopener">WhatsApp 查詢 <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </article>
 
-          <article class="product" data-reveal>
-            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Chanel%2022P%20Clutch%20with%20Chain%EF%BC%88Baby%20Blue%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Chanel 22P Clutch with Chain">
-              <img src="/img/chanel-1.jpg" alt="Chanel 22P Clutch with Chain Baby Blue" loading="lazy" />
-              <span class="product__cond">31 卡</span>
-            </a>
-            <div class="product__info">
-              <p class="product__no">N°03 · Chanel</p>
-              <h3>22P Clutch with Chain</h3>
-              <p class="product__spec">Baby Blue · 淡金扣 · 珍珠鏈條 · Full set 無單</p>
-              <p class="product__price">HK$9,XXX</p>
-            </div>
-          </article>
+            <article class="product" data-reveal data-wa="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Birkin%2025%EF%BC%88%E6%9D%8F%E4%BB%81%E7%B6%A0%EF%BC%89">
+              <button class="product__media" type="button" aria-label="放大睇 Hermès Birkin 25">
+                <img src="/img/birkin25.jpg" alt="Hermès Birkin 25 杏仁綠" loading="lazy" />
+                <span class="product__cond">90%</span>
+              </button>
+              <div class="product__info">
+                <p class="product__no">N°02 · Hermès</p>
+                <h3>Birkin 25</h3>
+                <p class="product__spec">杏仁綠 · 銀扣 · Togo · B Stamp · Full set 有單</p>
+                <div class="product__foot">
+                  <p class="product__price is-ask">Price on request</p>
+                  <a class="product__ask" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Birkin%2025%EF%BC%88%E6%9D%8F%E4%BB%81%E7%B6%A0%EF%BC%89" target="_blank" rel="noopener">WhatsApp 查詢 <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </article>
 
-          <article class="product product--offset" data-reveal>
-            <a class="product__media" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Kelly%2028%EF%BC%88Blue%20Indigo%EF%BC%89" target="_blank" rel="noopener" aria-label="WhatsApp 查詢 Hermès Kelly 28">
-              <img src="/img/kelly-3.jpg" alt="Hermès Kelly 28 Blue Indigo" loading="lazy" />
-              <span class="product__cond">98%</span>
-            </a>
-            <div class="product__info">
-              <p class="product__no">N°04 · Hermès</p>
-              <h3>Kelly 28</h3>
-              <p class="product__spec">76 Blue Indigo · 金扣 · Epsom · Full set 有單</p>
-              <p class="product__price is-ask">Price on request</p>
-            </div>
-          </article>
+            <article class="product" data-reveal data-wa="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Chanel%2022P%20Clutch%20with%20Chain%EF%BC%88Baby%20Blue%EF%BC%89">
+              <button class="product__media" type="button" aria-label="放大睇 Chanel 22P Clutch with Chain">
+                <img src="/img/chanel-1.jpg" alt="Chanel 22P Clutch with Chain Baby Blue" loading="lazy" />
+                <span class="product__cond">31 卡</span>
+              </button>
+              <div class="product__info">
+                <p class="product__no">N°03 · Chanel</p>
+                <h3>22P Clutch with Chain</h3>
+                <p class="product__spec">Baby Blue · 淡金扣 · 珍珠鏈條 · Full set 無單</p>
+                <div class="product__foot">
+                  <p class="product__price">HK$9,XXX</p>
+                  <a class="product__ask" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Chanel%2022P%20Clutch%20with%20Chain%EF%BC%88Baby%20Blue%EF%BC%89" target="_blank" rel="noopener">WhatsApp 查詢 <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product" data-reveal data-wa="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Kelly%2028%EF%BC%88Blue%20Indigo%EF%BC%89">
+              <button class="product__media" type="button" aria-label="放大睇 Hermès Kelly 28">
+                <img src="/img/kelly-3.jpg" alt="Hermès Kelly 28 Blue Indigo" loading="lazy" />
+                <span class="product__cond">98%</span>
+              </button>
+              <div class="product__info">
+                <p class="product__no">N°04 · Hermès</p>
+                <h3>Kelly 28</h3>
+                <p class="product__spec">76 Blue Indigo · 金扣 · Epsom · Full set 有單</p>
+                <div class="product__foot">
+                  <p class="product__price is-ask">Price on request</p>
+                  <a class="product__ask" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Hermes%20Kelly%2028%EF%BC%88Blue%20Indigo%EF%BC%89" target="_blank" rel="noopener">WhatsApp 查詢 <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+          <div class="showcase__progress" aria-hidden="true"><i id="railBar"></i></div>
         </div>
 
         <div class="edit__more" data-reveal>
@@ -195,11 +231,40 @@
       </div>
     </div>
 
-    <!-- ============ 03 服務 ============ -->
+    <!-- ============ 03 直播間（Facebook 專頁直播） ============ -->
+    <section class="live" id="live">
+      <div class="grain" aria-hidden="true"></div>
+      <div class="wrap live__grid">
+        <div class="live__info">
+          <p class="label" data-reveal>03 — Live</p>
+          <h2 data-reveal>直播間<small>The Live Salon</small></h2>
+          <p class="live__copy" data-reveal>我哋不定期喺 Facebook 專頁開直播：即場睇新貨、睇細節，留言即時查詢。錯過咗，亦可以隨時重溫。</p>
+          <p class="live__status" id="liveStatus" data-reveal><i aria-hidden="true"></i><span>目前未開播 · 可重溫最近直播</span></p>
+          <div class="live__actions" data-reveal>
+            <a class="btn btn--light" id="liveGo" href="https://www.facebook.com/1314LuxuryForLady/live_videos" target="_blank" rel="noopener"><span>進入 Facebook 直播間</span></a>
+            <a class="line-link" href="https://wa.me/85294177866?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%8B%E6%AC%A1%E9%96%8B%E7%9B%B4%E6%92%AD%E5%8F%AF%E4%BB%A5%E9%80%9A%E7%9F%A5%E6%88%91%E5%97%8E%EF%BC%9F" target="_blank" rel="noopener">開播時 WhatsApp 通知我 <span aria-hidden="true">→</span></a>
+          </div>
+          <ol class="replays" id="replays" aria-label="最近直播重溫" data-reveal></ol>
+        </div>
+        <div class="live__screen" data-reveal>
+          <div class="player" id="player">
+            <button class="player__poster" id="playerPoster" type="button">
+              <img src="/img/logo.jpg" alt="" width="96" height="96" loading="lazy" />
+              <span class="player__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+              <span class="player__label" id="playerLabel">播放最近一場直播重溫</span>
+              <span class="player__hint">影片由 Facebook 提供，按下後才會載入</span>
+            </button>
+          </div>
+          <p class="live__src"><span>Facebook Live</span><a href="https://www.facebook.com/1314LuxuryForLady/" target="_blank" rel="noopener">1314 Luxury ForLady ↗</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 服務 ============ -->
     <section class="services" id="services">
       <div class="wrap">
         <header class="section-head">
-          <p class="label" data-reveal>03 — Services</p>
+          <p class="label" data-reveal>04 — Services</p>
           <h2 data-reveal>一站式名牌服務</h2>
         </header>
 
@@ -239,11 +304,11 @@
       </div>
     </section>
 
-    <!-- ============ 04 門市 ============ -->
+    <!-- ============ 05 門市 ============ -->
     <section class="boutique" id="boutique">
       <div class="wrap boutique__grid">
         <div class="boutique__info">
-          <p class="label" data-reveal>04 — The Boutique</p>
+          <p class="label" data-reveal>05 — The Boutique</p>
           <h2 data-reveal>歡迎親臨<br />尖沙咀門市</h2>
           <dl data-reveal>
             <dt>Address</dt>
@@ -278,6 +343,7 @@
           <a href="https://www.instagram.com/1314luxury_forlady/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.instagram.com/kakichau_1009/" target="_blank" rel="noopener">Founder</a>
           <a href="https://www.facebook.com/1314LuxuryForLady/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.facebook.com/1314LuxuryForLady/live_videos" target="_blank" rel="noopener">Live</a>
           <a href="https://www.threads.com/@1314luxury_preowned" target="_blank" rel="noopener">Threads</a>
           <a href="https://wa.me/85294177866" target="_blank" rel="noopener">WhatsApp</a>
         </nav>
@@ -295,6 +361,27 @@
     <span class="fab__orb"><img src="/img/ai-mark.svg" alt="" width="60" height="60" /></span>
     <span class="fab__label">問問小助手</span>
   </button>
+
+  <!-- ============ 產品大圖（可放大睇細節） ============ -->
+  <dialog class="lightbox" id="lightbox" aria-label="產品大圖">
+    <button class="lightbox__close" id="lbClose" type="button">Close <span aria-hidden="true">✕</span></button>
+    <div class="lightbox__view" id="lbView"><img id="lbImg" src="" alt="" draggable="false" /></div>
+    <p class="lightbox__tip" aria-hidden="true">點一下放大 · 移動睇細節</p>
+    <div class="lightbox__bar">
+      <p class="lightbox__cap"><span id="lbNo"></span><b id="lbName"></b><em id="lbSpec"></em></p>
+      <div class="lightbox__nav">
+        <button id="lbPrev" type="button" aria-label="上一張">←</button>
+        <span id="lbCount">1 / 5</span>
+        <button id="lbNext" type="button" aria-label="下一張">→</button>
+      </div>
+      <a class="btn btn--light" id="lbAsk" href="https://wa.me/85294177866" target="_blank" rel="noopener"><span>WhatsApp 查詢</span></a>
+    </div>
+  </dialog>
+
+  <!-- ============ 直播進行中提示（開播時由 app.js 顯示） ============ -->
+  <a class="live-toast" id="liveToast" href="https://www.facebook.com/1314LuxuryForLady/live_videos" target="_blank" rel="noopener" hidden>
+    <i aria-hidden="true"></i><span><b>直播進行中</b>立即收睇 →</span>
+  </a>
 
   <script src="/fluid.js" defer></script>
   <script src="/app.js" defer></script>

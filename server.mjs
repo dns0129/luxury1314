@@ -4,6 +4,7 @@
 //
 // 支援任何「OpenAI 相容」的 AI 服務（OpenAI、DeepSeek、通義千問、Kimi、Gemini…），
 // 在 .env 設定 AI_API_KEY / AI_BASE_URL / AI_MODEL 即可切換。
+// - GET /api/live：直播狀態（Facebook 專頁 1314 Luxury ForLady）
 // API key 只放在伺服器端，永遠不會傳到瀏覽器。
 
 import http from "node:http";
@@ -171,6 +172,94 @@ async function handleChat(req, res) {
   }
 }
 
+// ---------- 直播狀態 ----------
+// 資料來源（按優先次序）：
+// 1. live.config.json 的 liveNow：手動填入正在直播的影片網址（改完即時生效，毋須重啟）
+// 2. Facebook Graph API：在 .env 設定 FB_PAGE_ID + FB_PAGE_TOKEN 後，自動偵測專頁是否正在直播，並更新重溫清單
+// 3. 兩者都沒有：只顯示 live.config.json 內的重溫清單
+const LIVE_CONFIG = path.join(here, "live.config.json");
+const FB_PAGE_ID = process.env.FB_PAGE_ID;
+const FB_PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
+const FB_ORIGIN = "https://www.facebook.com";
+const LIVE_TTL = 60_000;
+let liveCache = { at: 0, data: null };
+
+// 只接受 facebook.com 的 https 連結，避免設定檔或 API 回傳的內容被當成任意連結嵌入頁面
+function fbUrl(value) {
+  if (typeof value !== "string" || !value.trim()) return "";
+  try {
+    const u = new URL(value.trim(), FB_ORIGIN);
+    return u.protocol === "https:" && /(^|\.)facebook\.com$/.test(u.hostname) ? u.href : "";
+  } catch {
+    return "";
+  }
+}
+function clock(seconds) {
+  const s = Math.round(Number(seconds) || 0);
+  if (!s) return "";
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), r = s % 60;
+  return (h ? `${h}:${String(m).padStart(2, "0")}` : `${m}`) + `:${String(r).padStart(2, "0")}`;
+}
+
+async function fetchFacebookLive() {
+  const api = new URL(`https://graph.facebook.com/v21.0/${encodeURIComponent(FB_PAGE_ID)}/live_videos`);
+  api.searchParams.set("fields", "status,permalink_url,title,video{length}");
+  api.searchParams.set("limit", "12");
+  api.searchParams.set("access_token", FB_PAGE_TOKEN);
+  const r = await fetch(api, { signal: AbortSignal.timeout(8000) });
+  const body = await r.json();
+  if (!r.ok) throw new Error(body?.error?.message || `HTTP ${r.status}`);
+  const list = Array.isArray(body.data) ? body.data : [];
+  const onAir = list.find((v) => v.status === "LIVE");
+  return {
+    liveUrl: onAir ? fbUrl(onAir.permalink_url) : "",
+    replays: list
+      .filter((v) => v.status === "VOD")
+      .map((v) => ({ url: fbUrl(v.permalink_url), title: String(v.title || "").slice(0, 60), duration: clock(v.video?.length) }))
+      .filter((v) => v.url),
+  };
+}
+
+async function getLive() {
+  if (liveCache.data && Date.now() - liveCache.at < LIVE_TTL) return liveCache.data;
+  let cfg = {};
+  try {
+    cfg = JSON.parse(await fs.readFile(LIVE_CONFIG, "utf8"));
+  } catch (err) {
+    if (err.code !== "ENOENT") console.warn("[live] live.config.json 讀取失敗:", err.message);
+  }
+  const data = {
+    live: false,
+    liveUrl: "",
+    pageUrl: fbUrl(cfg.pageUrl) || `${FB_ORIGIN}/1314LuxuryForLady/live_videos`,
+    replays: (Array.isArray(cfg.replays) ? cfg.replays : [])
+      .map((v) => ({ url: fbUrl(v?.url), title: String(v?.title || "").slice(0, 60), duration: String(v?.duration || "").slice(0, 10) }))
+      .filter((v) => v.url),
+  };
+  const manual = fbUrl(cfg.liveNow || "");
+  if (manual) {
+    data.live = true;
+    data.liveUrl = manual;
+  } else if (FB_PAGE_ID && FB_PAGE_TOKEN) {
+    try {
+      const fb = await fetchFacebookLive();
+      if (fb.liveUrl) Object.assign(data, { live: true, liveUrl: fb.liveUrl });
+      if (fb.replays.length) data.replays = fb.replays;
+    } catch (err) {
+      console.warn("[live] Facebook 直播狀態查詢失敗:", err.message);
+    }
+  }
+  data.replays = data.replays.slice(0, 4);
+  liveCache = { at: Date.now(), data };
+  return data;
+}
+
+async function handleLive(res) {
+  const data = await getLive();
+  res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache" });
+  res.end(JSON.stringify(data));
+}
+
 async function serveStatic(req, res) {
   const url = new URL(req.url, "http://localhost");
   let rel = decodeURIComponent(url.pathname);
@@ -197,6 +286,7 @@ async function serveStatic(req, res) {
 http
   .createServer((req, res) => {
     if (req.method === "POST" && req.url === "/api/chat") return handleChat(req, res);
+    if (req.method === "GET" && req.url.split("?")[0] === "/api/live") return handleLive(res);
     if (req.method === "GET" || req.method === "HEAD") return serveStatic(req, res);
     res.writeHead(405);
     res.end();
@@ -210,4 +300,9 @@ http
     } else {
       console.log("AI 客服：未設定 AI_API_KEY（會引導客人用 WhatsApp）");
     }
+    console.log(
+      FB_PAGE_ID && FB_PAGE_TOKEN
+        ? "直播：已連接 Facebook 專頁，自動偵測開播"
+        : "直播：未設定 FB_PAGE_ID / FB_PAGE_TOKEN（開播時請在 live.config.json 的 liveNow 填入直播網址）"
+    );
   });
