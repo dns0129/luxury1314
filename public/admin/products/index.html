@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#fbf6f4" />
+    <title>1314 Luxury · 商品管理</title>
+    <link rel="icon" href="/img/ai-mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/admin.css" />
+    <link rel="stylesheet" href="/admin/records.css" />
+    <link rel="stylesheet" href="./products.css" />
+    <script defer src="/admin/workspace-shell.js"></script>
+    <script defer src="./products.js"></script>
+  </head>
+  <body>
+    <div class="workspace">
+      <aside class="sidebar" data-workspace="products"></aside>
+      <div class="main-shell">
+        <header class="topbar">
+          <span>Maison / <span id="breadcrumb">商品管理</span></span>
+          <div>
+            <time id="todayLabel"></time
+            ><span class="owner-indicator">店舖管理</span>
+          </div>
+        </header>
+        <main>
+          <section class="view">
+            <div class="page-heading">
+              <div>
+                <p class="display-title">The Inventory</p>
+                <h1>商品管理</h1>
+              </div>
+              <div class="heading-actions">
+                <span id="mode" class="muted"></span
+                ><button id="create" class="button primary" disabled>
+                  <span aria-hidden="true">＋</span> 新增商品
+                </button>
+              </div>
+            </div>
+            <p id="notice" role="status" class="muted"></p>
+            <div class="metrics">
+              <div class="metric">
+                <span>全部商品</span><strong id="totalMetric">—</strong
+                ><small>商品檔案</small>
+              </div>
+              <div class="metric">
+                <span>在售</span><strong id="availableMetric">—</strong
+                ><small>可供查詢</small>
+              </div>
+              <div class="metric">
+                <span>預留</span><strong id="heldMetric">—</strong
+                ><small>已留貨</small>
+              </div>
+              <div class="metric">
+                <span>待整理</span><strong id="pendingMetric">—</strong
+                ><small>有待處理</small>
+              </div>
+            </div>
+            <div class="inbox" id="inbox">
+              <section class="conversation-list" aria-label="商品列表">
+                <div class="list-tools">
+                  <label class="search"
+                    ><span aria-hidden="true">⌕</span
+                    ><input
+                      id="search"
+                      type="search"
+                      placeholder="搜尋款式、品牌或 SKU"
+                      aria-label="搜尋商品"
+                  /></label>
+                  <label class="filter-select"
+                    ><span>商品狀態</span
+                    ><select id="filter">
+                      <option value="">全部狀態</option>
+                      <option>在售</option>
+                      <option>預留</option>
+                      <option>待整理</option>
+                      <option>已售</option>
+                    </select></label
+                  >
+                </div>
+                <div class="list-items" id="list"></div>
+                <div class="list-footer">
+                  <span id="count"></span><span>商品名錄</span>
+                </div>
+              </section>
+              <section
+                class="conversation-detail"
+                aria-label="商品檔案"
+                id="detail"
+              ></section>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <dialog id="editor">
+      <form id="form">
+        <div class="form-heading">
+          <div>
+            <p class="form-eyebrow">Product record</p>
+            <h2 id="editTitle">新增商品</h2>
+          </div>
+          <button id="cancel" type="button" aria-label="關閉">×</button>
+        </div>
+        <div class="fields">
+          <label
+            >商品編號 SKU<input
+              name="sku"
+              required
+              maxlength="36"
+              pattern="[A-Za-z0-9][A-Za-z0-9_\-]*" /></label
+          ><label
+            >商品狀態<select name="status">
+              <option>待整理</option>
+              <option>在售</option>
+              <option>預留</option>
+              <option>已售</option>
+            </select></label
+          >
+          <label>品牌<input name="brand" required maxlength="60" /></label
+          ><label>款式名稱<input name="name" required maxlength="100" /></label>
+          <label class="span"
+            >顏色、材質與細節<input name="details" maxlength="180"
+          /></label>
+          <label
+            >成色<input
+              name="condition"
+              maxlength="80"
+              placeholder="例如 98%" /></label
+          ><label
+            >公開標價<input
+              name="price"
+              maxlength="40"
+              placeholder="例如 HK$19,500 或詢價"
+          /></label>
+          <label class="span"
+            >配件與單據<input name="accessories" maxlength="180" /></label
+          ><label class="span"
+            >商品主圖<input
+              type="file"
+              name="photo"
+              accept="image/jpeg,image/png,image/webp"
+            /><small>選取新相片可替換現有主圖。</small></label
+          >
+        </div>
+        <p id="formError" role="alert"></p>
+        <button class="button primary" id="save">儲存商品</button>
+      </form>
+    </dialog>
+  </body>
+</html>

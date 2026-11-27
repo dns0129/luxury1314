@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#fbf6f4" />
+    <title>1314 Luxury · 訊息巡查員</title>
+    <link rel="icon" href="/img/ai-mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/admin.css" />
+    <link rel="stylesheet" href="/admin/records.css" />
+    <link rel="stylesheet" href="./patrol.css" />
+    <script defer src="/admin/workspace-shell.js"></script>
+    <script type="module" src="/admin/workspace.js"></script>
+  </head>
+  <body>
+    <div class="workspace">
+      <aside class="sidebar" data-workspace="patrol"></aside>
+      <div class="main-shell">
+        <header class="topbar">
+          <span>Maison / <span id="breadcrumb">訊息巡查員</span></span>
+          <div>
+            <time id="todayLabel"></time
+            ><span class="owner-indicator">店舖管理</span>
+          </div>
+        </header>
+        <main>
+          <section class="view">
+            <div class="page-heading">
+              <div>
+                <p class="display-title">The Correspondence</p>
+                <h1>訊息巡查員</h1>
+              </div>
+              <div class="heading-actions">
+                <span id="mode" class="muted"></span
+                ><button class="button secondary" id="refresh">
+                  <span aria-hidden="true">↻</span> 重新整理</button
+                ><button class="button primary" id="import" disabled>
+                  匯入私訊
+                </button>
+              </div>
+            </div>
+            <p id="notice" role="status" class="muted"></p>
+            <div class="metrics">
+              <div class="metric">
+                <span>全部訊息</span><strong id="allMetric">—</strong
+                ><small>目前搜尋範圍</small>
+              </div>
+              <div class="metric">
+                <span>已發出</span><strong id="outgoingMetric">—</strong
+                ><small>店舖發出的私訊</small>
+              </div>
+              <div class="metric">
+                <span>已收到</span><strong id="incomingMetric">—</strong
+                ><small>收到的私訊</small>
+              </div>
+              <div class="metric">
+                <span>已收藏</span><strong id="foundMetric">—</strong
+                ><small>已儲存的線索</small>
+              </div>
+            </div>
+            <div class="inbox" id="inbox">
+              <section class="conversation-list" aria-label="私訊列表">
+                <div class="list-tools">
+                  <label class="search"
+                    ><span aria-hidden="true">⌕</span
+                    ><input
+                      type="search"
+                      id="search"
+                      placeholder="搜尋訊息、款式或聯絡人"
+                      aria-label="搜尋訊息"
+                      maxlength="200"
+                  /></label>
+                  <div class="scope-controls">
+                    <select id="channel" aria-label="訊息渠道">
+                      <option value="all">全部渠道</option>
+                      <option value="whatsapp">WhatsApp</option>
+                      <option value="instagram">Instagram 私訊</option>
+                      <option value="wechat">微信私訊</option>
+                      <option value="peer">其他同行私訊</option></select
+                    ><label class="check"
+                      ><input type="checkbox" id="peer" />只看同行</label
+                    >
+                  </div>
+                  <div class="filters kinds" aria-label="篩選訊息">
+                    <button
+                      data-kind="all"
+                      aria-pressed="true"
+                      class="selected"
+                    >
+                      全部</button
+                    ><button data-kind="outgoing" aria-pressed="false">
+                      已發出</button
+                    ><button data-kind="incoming" aria-pressed="false">
+                      已收到</button
+                    ><button data-kind="found" aria-pressed="false">
+                      已收藏
+                    </button>
+                  </div>
+                </div>
+                <div id="results" class="list-items" aria-live="polite"></div>
+                <div class="list-footer">
+                  <span id="range"></span
+                  ><span
+                    ><button id="prev" disabled>上一頁</button
+                    ><button id="next" disabled>下一頁</button></span
+                  >
+                </div>
+              </section>
+              <section
+                class="conversation-detail"
+                id="reader"
+                aria-label="訊息詳情"
+              ></section>
+            </div>
+            <p class="field-help" id="connection"></p>
+          </section>
+        </main>
+      </div>
+    </div>
+    <dialog id="dialog" aria-labelledby="importTitle">
+      <div class="form-heading">
+        <h2 id="importTitle">匯入私訊</h2>
+        <button id="close" aria-label="關閉">×</button>
+      </div>
+      <p class="hint" id="destination"></p>
+      <div class="input-modes">
+        <button id="fileMode" aria-pressed="true">匯入檔案</button
+        ><button id="noteMode" aria-pressed="false">摘錄同行私訊</button>
+      </div>
+      <div id="filePanel">
+        <p class="hint">
+          選擇 WhatsApp 匯出的文字檔，或選擇載有同行私訊的 JSON
+          檔。重複記錄會自動略過。
+        </p>
+        <label class="stack"
+          >選擇檔案<input
+            type="file"
+            id="file"
+            accept=".txt,.json,text/plain,application/json"
+        /></label>
+        <div id="options" hidden>
+          <div class="fields">
+            <label
+              >聯絡人或群組名稱<input
+                id="contact"
+                maxlength="100"
+                placeholder="例如 銅鑼灣同行"
+            /></label>
+            <label>我在對話中的名稱<select id="self"></select></label>
+            <label
+              >匯出日期順序<select id="order">
+                <option value="dmy">日／月／年</option>
+                <option value="mdy">月／日／年</option>
+                <option value="ymd">年／月／日</option>
+              </select></label
+            >
+            <label
+              >原對話時區（UTC）<input
+                id="timezone"
+                value="+08:00"
+                placeholder="+08:00"
+            /></label>
+          </div>
+          <label class="check"
+            ><input type="checkbox" id="peerImport" />這是同行的私人對話</label
+          >
+        </div>
+        <details class="format">
+          <summary>同行記錄的 JSON 格式</summary>
+          <p>
+            WhatsApp 可匯入一般客戶或同行私訊。其他渠道只收同行私訊。kind 可填
+            incoming（收到）、outgoing（已發出）或 found（已收藏的私訊線索）。
+          </p>
+          <pre>
+{"records":[{"channel":"wechat","kind":"found",
+ "sourceType":"private_message","isPeer":true,
+ "contact":"同行 A","externalId":"wx-001",
+ "title":"Birkin 25 求貨","content":"想找杏仁綠。",
+ "occurredAt":"2026-11-24T10:30:00+08:00"}]}</pre
+          >
+        </details>
+      </div>
+      <div id="notePanel" hidden>
+        <p class="hint">
+          從已取得的同行對話貼入原文，填寫對方及原訊息時間，之後即可搜尋或收藏。
+        </p>
+        <div class="fields">
+          <label
+            >私訊渠道<select id="noteChannel">
+              <option value="whatsapp">WhatsApp</option>
+              <option value="wechat">微信私訊</option>
+              <option value="instagram">Instagram 私訊</option>
+              <option value="peer">其他同行私訊</option>
+            </select></label
+          >
+          <label
+            >訊息類型<select id="noteKind">
+              <option value="incoming">收到</option>
+              <option value="outgoing">已發出</option>
+              <option value="found">已收藏線索</option>
+            </select></label
+          >
+          <label>同行名稱<input id="noteContact" maxlength="100" /></label
+          ><label
+            >原訊息時間（香港）<input type="datetime-local" id="noteTime"
+          /></label>
+          <label class="span"
+            >私訊原文<textarea
+              id="noteContent"
+              rows="4"
+              maxlength="14000"
+            ></textarea>
+          </label>
+        </div>
+      </div>
+      <p id="preview" class="hint" aria-live="polite"></p>
+      <p id="error" role="alert"></p>
+      <button id="save" class="button primary" disabled>確認匯入</button>
+    </dialog>
+  </body>
+</html>

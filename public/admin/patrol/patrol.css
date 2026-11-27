@@ -1,0 +1,73 @@
+.kinds {
+  gap: 1px;
+}
+.kinds button {
+  flex: 1;
+  padding-inline: 5px;
+  white-space: nowrap;
+}
+.list-footer button {
+  font-size: 10px;
+  color: var(--rose-deep);
+  padding: 0 5px;
+}
+.record-meta {
+  padding: 0 26px 18px;
+}
+.record-meta .visitor-info {
+  margin: 8px 0;
+  gap: 7px;
+}
+.record-scroll {
+  overflow: auto;
+  min-height: 0;
+  flex: 1;
+}
+.record-header {
+  border-bottom: 1px solid var(--line);
+}
+.record-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.record-actions .button {
+  padding: 6px 10px;
+}
+.input-modes {
+  display: flex;
+  gap: 5px;
+  margin: 10px 0;
+}
+.input-modes button {
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.input-modes button[aria-pressed="true"] {
+  background: var(--paper-2);
+  color: var(--rose-deep);
+}
+.hint,
+.format {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 10px 0;
+}
+.format pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--paper-2);
+  padding: 10px;
+}
+.format summary {
+  cursor: pointer;
+}
+@media (max-width: 650px) {
+  .record-meta {
+    padding-inline: 16px;
+  }
+  .scope-controls {
+    margin-bottom: 5px;
+  }
+}

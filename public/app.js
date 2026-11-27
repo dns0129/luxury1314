@@ -1,5 +1,6 @@
 // 1314 Luxury — 互動與 AI 對話
 (() => {
+  const pagesPreview = document.documentElement.hasAttribute("data-pages-preview");
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -133,6 +134,15 @@
   const chips = $("#chips");
   const resetBtn = $("#newChat");
   const launcher = $("#aiLauncher");
+  if (pagesPreview) {
+    input.placeholder = "輸入想向門市查詢的問題…";
+    input.dataset.short = "輸入門市查詢…";
+    sendBtn.setAttribute("aria-label", "準備 WhatsApp 查詢");
+    launcher.setAttribute("aria-label", "聯絡門市");
+    $(".fab__label", launcher).textContent = "聯絡門市";
+    stage.setAttribute("aria-label", "1314 門市查詢");
+    $(".stage__note").replaceChildren("門市查詢經 ", $(".stage__note a"), " 跟進。");
+  }
 
   // 窄螢幕用較短的提示文字，避免換行被裁切
   const longHint = input.placeholder;
@@ -141,8 +151,11 @@
   narrow.addEventListener("change", syncHint);
   syncHint();
 
-  const GREETING = "你好，我係 1314 小助手。想了解精選手袋、寄賣收購，定係門市資料？隨時問我。";
+  const GREETING = pagesPreview
+    ? "你好，歡迎來到 1314 Luxury。想查詢手袋、寄賣或門市資料？可以用 WhatsApp 搵我哋。"
+    : "你好，我係 1314 小助手。想了解精選手袋、寄賣收購，定係門市資料？隨時問我。";
   let history = [];
+  let conversationId = null;
   let busy = false;
 
   function typeGreeting() {
@@ -197,6 +210,8 @@
   }
 
   function resetChat() {
+    if (busy) return;
+    conversationId = null;
     history = [];
     log.innerHTML = "";
     const apply = () => {
@@ -210,12 +225,27 @@
 
   function setThinking(on) {
     stage.classList.toggle("is-thinking", on);
+    resetBtn.disabled = on;
     window.fluid?.setEnergy(on ? 1 : 0);
   }
 
   async function send(text) {
     text = text.trim();
     if (!text || busy) return;
+    if (pagesPreview) {
+      enterChat();
+      addMsg("user", text);
+      const contact = $(".stage__note a").cloneNode(false);
+      const destination = new URL(contact.href);
+      destination.searchParams.set("text", text);
+      contact.href = destination.href;
+      contact.textContent = "前往 WhatsApp";
+      addMsg("assistant", "查詢內容已準備好。你可以在 WhatsApp 確認後發送給門市。 ").append(contact);
+      input.value = "";
+      autoGrow();
+      updateSend();
+      return;
+    }
     busy = true;
     updateSend();
     enterChat();
@@ -239,8 +269,9 @@
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history.slice(-20), conversationId }),
       });
+      if (res.headers.get("X-Conversation-Id")) conversationId = res.headers.get("X-Conversation-Id");
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       for (;;) {
@@ -621,7 +652,7 @@
   async function pollLive() {
     if (document.hidden) return;
     try {
-      const r = await fetch("/api/live");
+      const r = await fetch(pagesPreview ? "./live.json" : "/api/live");
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const d = await r.json();
       const changed = d.live !== liveState.live || d.liveUrl !== liveState.liveUrl || d.replays.length !== liveState.replays.length;
@@ -633,6 +664,7 @@
   // 已經身處直播區時，毋須再顯示浮動提示
   new IntersectionObserver(([e]) => document.body.classList.toggle("at-live", e.isIntersecting)).observe($("#live"));
   pollLive();
+  if (pagesPreview) return;
   setInterval(pollLive, 90_000);
   document.addEventListener("visibilitychange", pollLive);
 })();

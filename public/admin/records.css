@@ -1,0 +1,123 @@
+/* Shared editor and list controls for catalogue and private messages. */
+#notice:not(:empty) {
+  margin-bottom: 14px;
+}
+.filter-select,
+.scope-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.filter-select select,
+.scope-controls select {
+  flex: 1;
+  min-width: 0;
+}
+select {
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--plum);
+  font: inherit;
+  border-radius: 7px;
+  padding: 8px;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  white-space: nowrap;
+}
+.check input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--rose-deep);
+}
+.row-top strong,
+.row-top time {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row-top time {
+  flex-shrink: 0;
+}
+dl dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+dialog {
+  background: var(--white);
+  color: var(--plum);
+  width: min(520px, 94vw);
+  max-height: 90svh;
+  overflow: auto;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 16px 60px #3b1d2825;
+}
+dialog::backdrop {
+  background: #29161f75;
+}
+.form-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.form-heading button {
+  font-size: 24px;
+}
+.form-eyebrow {
+  font: italic 20px var(--latin);
+  color: var(--rose-deep);
+}
+dialog .fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+dialog .fields label,
+dialog .stack {
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+}
+dialog .fields select {
+  min-width: 0;
+}
+dialog .span {
+  grid-column: 1/-1;
+}
+dialog label small {
+  font-size: 10px;
+  color: var(--muted);
+}
+dialog #error,
+dialog #formError {
+  color: #a32945;
+  font-size: 12px;
+}
+dialog .button.primary {
+  margin-top: 12px;
+}
+#mode {
+  font-size: 10px;
+}
+@media (max-width: 650px) {
+  .heading-actions {
+    gap: 5px;
+  }
+  .page-heading {
+    flex-wrap: wrap;
+  }
+  .form-heading button {
+    min-width: 32px;
+  }
+}

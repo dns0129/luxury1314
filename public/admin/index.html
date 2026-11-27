@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#fbf6f4" />
+    <title>1314 Luxury · 客服管理</title>
+    <link rel="icon" href="/img/ai-mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/admin.css" />
+    <script src="/admin/workspace-shell.js" defer></script>
+    <script type="module" src="/admin/workspace.js"></script>
+  </head>
+  <body>
+    <div id="loginView" class="login-screen">
+      <section class="login-art" aria-label="1314 Luxury">
+        <a class="wordmark" href="/">1314 <i>Luxury</i></a>
+        <div class="login-emblem">
+          <img src="/img/ai-mark.svg" alt="1314 Luxury 品牌標誌" />
+        </div>
+        <div>
+          <p class="login-title">The art of<br /><i>conversation.</i></p>
+          <p class="login-caption">每一份信任，都從細心聆聽開始。</p>
+        </div>
+        <span class="login-foot">1314 Luxury · Hong Kong</span>
+      </section>
+      <main class="login-main">
+        <form id="loginForm" class="login-form">
+          <img
+            class="login-mobile-mark"
+            src="/img/ai-mark.svg"
+            alt="1314 Luxury"
+          />
+          <p class="small-brand">1314 Luxury</p>
+          <h1>歡迎回來</h1>
+          <p class="muted">登入你的私人客服工作台。</p>
+          <label for="username">帳號</label
+          ><input
+            id="username"
+            name="username"
+            autocomplete="username"
+            value="owner"
+            required
+          />
+          <label for="password">密碼</label
+          ><input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+          <p id="loginError" class="field-error" role="alert"></p>
+          <button class="button primary" id="loginBtn" type="submit">
+            登入工作台 <span aria-hidden="true">↗</span>
+          </button>
+          <a class="back-site" href="/">返回品牌網站</a>
+        </form>
+      </main>
+    </div>
+    <div id="workspace" class="workspace" hidden>
+      <aside class="sidebar" data-workspace="home"></aside>
+      <div class="main-shell">
+        <header class="topbar">
+          <span>Maison / <span id="breadcrumb">客戶對話</span></span>
+          <div>
+            <time id="todayLabel"></time
+            ><span class="owner-indicator">店舖管理</span>
+          </div>
+        </header>
+        <main>
+          <section id="conversationsView" class="view">
+            <div class="page-heading">
+              <div>
+                <p class="display-title">The Concierge</p>
+                <h1>客戶對話</h1>
+              </div>
+              <div class="heading-actions">
+                <span id="updatedLabel" class="muted">正在讀取</span
+                ><button id="refreshBtn" class="button secondary">
+                  <span aria-hidden="true">↻</span> 重新整理
+                </button>
+              </div>
+            </div>
+            <div class="metrics" aria-label="對話統計">
+              <div class="metric">
+                <span>今日新對話</span><strong id="statToday">—</strong
+                ><small>香港時間</small>
+              </div>
+              <div class="metric">
+                <span>客戶訊息</span><strong id="statMessages">—</strong
+                ><small id="statTotal">全部對話</small>
+              </div>
+              <div class="metric">
+                <span>未讀對話</span><strong id="statUnread">—</strong
+                ><small>等待你細閱</small>
+              </div>
+              <div class="metric">
+                <span>待跟進</span><strong id="statFollowUp">—</strong
+                ><small>已標記或回覆異常</small>
+              </div>
+            </div>
+            <div class="inbox" id="inbox">
+              <section class="conversation-list" aria-label="客戶對話列表">
+                <div class="list-tools">
+                  <label class="search"
+                    ><span aria-hidden="true">⌕</span
+                    ><input
+                      id="searchInput"
+                      type="search"
+                      placeholder="搜尋訊息或訪客"
+                      aria-label="搜尋訊息或訪客"
+                  /></label>
+                  <div class="filters" role="group" aria-label="篩選對話">
+                    <button
+                      data-filter="all"
+                      class="selected"
+                      aria-pressed="true"
+                    >
+                      全部</button
+                    ><button data-filter="unread" aria-pressed="false">
+                      未讀</button
+                    ><button data-filter="followup" aria-pressed="false">
+                      待跟進
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="conversationItems"
+                  class="list-items"
+                  aria-live="polite"
+                ></div>
+                <button id="loadMore" class="load-more" hidden>
+                  載入更多對話
+                </button>
+                <div class="list-footer">
+                  <span id="listCount">0 段對話</span><span>每 15 秒更新</span>
+                </div>
+              </section>
+              <section class="conversation-detail" aria-label="對話詳情">
+                <div id="emptyDetail" class="empty-detail">
+                  <div class="empty-mark">
+                    <img src="/img/ai-mark.svg" alt="" />
+                  </div>
+                  <p class="empty-serif">A closer conversation.</p>
+                  <h2>從一段對話開始</h2>
+                  <p>選擇左側對話，查看客戶的完整留言與 AI 回覆。</p>
+                  <a href="/" target="_blank" rel="noopener" class="text-link"
+                    >前往網站試聊 <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+                <div id="detailContent" class="detail-content" hidden>
+                  <header class="detail-header">
+                    <button
+                      id="backToList"
+                      class="icon-button mobile-back"
+                      aria-label="返回對話列表"
+                    >
+                      ←
+                    </button>
+                    <div class="detail-person">
+                      <span class="visitor-avatar" id="detailAvatar"></span>
+                      <div>
+                        <h2 id="detailTitle"></h2>
+                        <span id="detailMeta" class="muted"></span>
+                      </div>
+                    </div>
+                    <button
+                      id="followUpBtn"
+                      class="button secondary"
+                      aria-pressed="false"
+                    >
+                      標記跟進
+                    </button>
+                  </header>
+                  <div
+                    class="detail-tabs"
+                    role="tablist"
+                    aria-label="對話詳情分頁"
+                  >
+                    <button
+                      id="messagesTab"
+                      role="tab"
+                      aria-selected="true"
+                      aria-controls="messagesPanel"
+                    >
+                      對話內容</button
+                    ><button
+                      id="infoTab"
+                      role="tab"
+                      aria-selected="false"
+                      aria-controls="infoPanel"
+                    >
+                      訪客資料與備註</button
+                    ><span id="detailState" class="conversation-state"></span>
+                  </div>
+                  <div
+                    id="messagesPanel"
+                    class="message-panel"
+                    role="tabpanel"
+                    aria-labelledby="messagesTab"
+                  >
+                    <div id="chatMessages" class="chat-messages"></div>
+                  </div>
+                  <div
+                    id="infoPanel"
+                    class="info-panel"
+                    role="tabpanel"
+                    aria-labelledby="infoTab"
+                    hidden
+                  >
+                    <h3>對話資料</h3>
+                    <dl id="visitorInfo" class="visitor-info"></dl>
+                    <form id="notesForm">
+                      <label for="internalNotes">內部備註</label
+                      ><textarea
+                        id="internalNotes"
+                        maxlength="5000"
+                        rows="7"
+                        placeholder="記下客戶需求，方便下次跟進。"
+                      ></textarea>
+                      <p class="muted">備註僅在老闆後台顯示。</p>
+                      <button class="button primary" id="saveNoteBtn">
+                        儲存備註
+                      </button>
+                    </form>
+                  </div>
+                  <footer class="detail-footer">
+                    <span class="mini-mark" aria-hidden="true">✧</span
+                    ><span>網站留言與 AI 回覆均自動保存</span
+                    ><span id="detailTime"></span>
+                  </footer>
+                </div>
+              </section>
+            </div>
+          </section>
+          <section id="studioView" class="view" hidden>
+            <div class="page-heading">
+              <div>
+                <p class="display-title">The AI Atelier</p>
+                <h1>AI 調試室</h1>
+              </div>
+              <div class="heading-actions">
+                <span id="configState" class="muted">已儲存的設定</span
+                ><button
+                  type="submit"
+                  form="settingsForm"
+                  id="saveSettingsBtn"
+                  class="button primary"
+                >
+                  儲存並生效 <span aria-hidden="true">↗</span>
+                </button>
+              </div>
+            </div>
+            <div class="studio-grid">
+              <form id="settingsForm" class="settings-panel">
+                <div class="panel-heading">
+                  <div>
+                    <h2>調整你的私人顧問</h2>
+                    <p>設定語氣、店舖知識與回覆方式。</p>
+                  </div>
+                  <span class="mini-mark" aria-hidden="true">✧</span>
+                </div>
+                <div class="settings-body">
+                  <div class="toggle-row">
+                    <div>
+                      <label for="aiEnabled">網站 AI 客服</label>
+                      <p>關閉後會引導客戶聯絡 WhatsApp。</p>
+                    </div>
+                    <input
+                      id="aiEnabled"
+                      class="switch"
+                      type="checkbox"
+                      role="switch"
+                    />
+                  </div>
+                  <label for="systemPrompt">AI 指令與店舖知識</label>
+                  <p class="field-help">
+                    你希望小助手如何回應，以及可以參考的店舖資訊。
+                  </p>
+                  <textarea
+                    id="systemPrompt"
+                    class="prompt-editor"
+                    rows="16"
+                    maxlength="30000"
+                    required
+                  ></textarea>
+                  <details class="connection-settings">
+                    <summary>
+                      模型與連線設定 <span aria-hidden="true">＋</span>
+                    </summary>
+                    <div class="connection-fields">
+                      <label for="model">模型名稱</label
+                      ><input id="model" required maxlength="120" /><label
+                        for="baseURL"
+                        >服務網址</label
+                      ><input id="baseURL" type="url" required /><label
+                        for="apiKey"
+                        >API key</label
+                      ><input
+                        id="apiKey"
+                        type="password"
+                        autocomplete="off"
+                        placeholder="留空沿用現有金鑰"
+                      />
+                      <p id="keyState" class="field-help"></p>
+                      <div class="parameter-row">
+                        <div>
+                          <label for="temperature">回覆靈活度</label
+                          ><input
+                            id="temperature"
+                            type="number"
+                            min="0"
+                            max="2"
+                            step="0.1"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label for="maxTokens">回覆長度上限</label
+                          ><input
+                            id="maxTokens"
+                            type="number"
+                            min="64"
+                            max="16384"
+                            step="1"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <label for="extraParams">額外參數（JSON）</label
+                      ><textarea
+                        id="extraParams"
+                        rows="4"
+                        spellcheck="false"
+                      ></textarea>
+                    </div>
+                  </details>
+                  <p id="settingsError" class="field-error" role="alert"></p>
+                  <p id="settingsSavedAt" class="field-help"></p>
+                </div>
+              </form>
+              <section class="debug-panel" aria-label="AI 試聊">
+                <div class="panel-heading">
+                  <div>
+                    <h2>即時試聊</h2>
+                    <p>使用左側目前的設定測試回覆。</p>
+                  </div>
+                  <button
+                    id="clearDebug"
+                    class="icon-button"
+                    title="清空試聊"
+                    aria-label="清空試聊"
+                  >
+                    ↻
+                  </button>
+                </div>
+                <div class="debug-context">
+                  <span class="status-dot"></span>試聊獨立保存於目前頁面
+                </div>
+                <div
+                  id="debugMessages"
+                  class="debug-messages"
+                  role="log"
+                  aria-live="polite"
+                >
+                  <div class="debug-welcome" id="debugWelcome">
+                    <img src="/img/ai-mark.svg" alt="" />
+                    <p>試著問一個客戶會問的問題。</p>
+                    <div class="debug-suggestions">
+                      <button data-question="你哋有咩手袋推介？">
+                        手袋推介</button
+                      ><button data-question="我想寄賣手袋，應該點做？">
+                        寄賣流程</button
+                      ><button data-question="你們門市的地址和營業時間是什麼？">
+                        門市資料
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="debugResult" class="debug-result" hidden></div>
+                <form id="debugForm" class="debug-form">
+                  <label class="sr-only" for="debugInput">試聊訊息</label
+                  ><textarea
+                    id="debugInput"
+                    rows="2"
+                    maxlength="5000"
+                    placeholder="輸入測試問題…"
+                    required
+                  ></textarea
+                  ><button id="debugSend" type="submit" class="button primary">
+                    測試回覆 <span aria-hidden="true">↗</span>
+                  </button>
+                </form>
+              </section>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+  </body>
+</html>
